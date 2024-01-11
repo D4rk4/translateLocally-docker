@@ -1,11 +1,11 @@
 import requests
 import time
 
-url = "http://127.0.0.1:7725/translate"
+url = "http://127.0.0.1:3000/translate"
 data = {
     "text": "Hello World !",
     "src": "en",
-    "trg": "pt"
+    "trg": "ru"
 }
 
 start = time.time()

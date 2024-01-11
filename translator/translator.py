@@ -66,6 +66,9 @@ class TranslateLocally(Client):
 
     async def translate(self, text, src=None, trg=None, *, model=None, pivot=None, html=False):
         if src and trg:
+            # Add debugoutput to see what's going on, including the model used
+            print(f"Translating {text} from {src} to {trg}, model {model}, pivot {pivot}")
+
             if model or pivot:
                 raise Exception("Cannot combine src + trg and model + pivot arguments")
             spec = {"src": str(src), "trg": str(trg)}
@@ -99,8 +102,8 @@ async def get_build():
 
 async def test_translation():
     async with get_build() as tl:
-        models = await tl.list_models(include_remote=True)
-        necessary_models = {("en", "pt"), ("pt", "en")}
+        models = await tl.list_models(include_remote=False)
+        necessary_models = {("en", "ru")}
         selected_models = {
             (src,trg): first(sorted(
                 (
@@ -123,5 +126,4 @@ async def test_translation():
             if model["id"] == selected_model["id"]
         )
 
-        print(await tl.translate("Hello world!", "en", "pt"))
-        print(await tl.translate("Vamos traduzir mais coisas!", "pt", "en"))
+        print(await tl.translate("Hello world!", "en", "ru"))
