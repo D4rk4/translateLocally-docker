@@ -66,9 +66,6 @@ class TranslateLocally(Client):
 
     async def translate(self, text, src=None, trg=None, *, model=None, pivot=None, html=False):
         if src and trg:
-            # Add debugoutput to see what's going on, including the model used
-            print(f"Translating {text} from {src} to {trg}, model {model}, pivot {pivot}")
-
             if model or pivot:
                 raise Exception("Cannot combine src + trg and model + pivot arguments")
             spec = {"src": str(src), "trg": str(trg)}
